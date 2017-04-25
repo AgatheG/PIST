@@ -120,19 +120,8 @@ def mappingCarre(board, snake, head):
     input = []
 
     # Cherche les coordonnees de la pomme
-    X = 0
-    Y = 0
-    for i in range(BOARD_LENGTH):
-        stop = False
-        for j in range(BOARD_LENGTH):
-            if board[i][j] == 2:
-                X = i
-                Y = j
-                stop = True
-                break
-        if stop:
-            break
-
+    # Cherche les coordonnees de la pomme
+    (X, Y) = next(((i, row.index(2)) for i, row in enumerate(board) if 2 in row), (0, 0))
     XRelatif = head[0] - X  # X Relatif
     YRelatif = head[1] - Y  # Y Relatif
 
@@ -150,34 +139,34 @@ def mappingCarre(board, snake, head):
 
         if (XRelatif < 0 and YRelatif < 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [distance, 0, 0, 0]
+            input.extend([distance, 0, 0, 0])
         elif (XRelatif < 0 and YRelatif == 0):
             distance = 1 - (abs(XRelatif)) / BOARD_LENGTH
-            input += [distance, distance, 0, 0]
+            input.extend([distance, distance, 0, 0])
         elif (XRelatif < 0 and YRelatif > 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, distance, 0, 0]
+            input.extend([0, distance, 0, 0])
         elif (XRelatif == 0 and YRelatif > 0):
             distance = 1 - (abs(YRelatif)) / BOARD_LENGTH
-            input += [0, distance, distance, 0]
+            input.extend([0, distance, distance, 0])
         elif (XRelatif > 0 and YRelatif > 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, distance, 0]
+            input.extend([0, 0, distance, 0])
         elif (XRelatif > 0 and YRelatif == 0):
             distance = 1 - (abs(XRelatif)) / BOARD_LENGTH
-            input += [0, 0, distance, distance]
+            input.extend([0, 0, distance, distance])
         elif (XRelatif > 0 and YRelatif < 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, 0, distance]
+            input.extend([0, 0, 0, distance])
         elif (XRelatif == 0 and YRelatif < 0):
             distance = 1 - (abs(YRelatif)) / BOARD_LENGTH
-            input += [distance, 0, 0, distance]
+            input.extend([distance, 0, 0, distance])
         elif (XRelatif == 0 and YRelatif == 0):
-            input += [1, 1, 1, 1]
+            input.extend([1, 1, 1, 1])
 
         # Création des 3 inputs
         if xTete < 0 or xTete >= BOARD_LENGTH or yTete < 0 or yTete >= BOARD_LENGTH:
-            input += [1,1,1]
+            input.extend([1, 1, 1])
         else :
             # A gauche
             while y >= 0 and not trouve:
@@ -185,10 +174,10 @@ def mappingCarre(board, snake, head):
                 if board[xTete][y] == 1:
                     trouve = True
                     distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             y = yTete
             trouve = False
 
@@ -198,10 +187,10 @@ def mappingCarre(board, snake, head):
                 if board[x][yTete] == 1:
                     trouve = True
                     distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             x = xTete
             trouve = False
 
@@ -211,10 +200,10 @@ def mappingCarre(board, snake, head):
                 if board[xTete][y] == 1:
                     trouve = True
                     distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             y = yTete
             trouve = False
 
@@ -223,34 +212,34 @@ def mappingCarre(board, snake, head):
         # Création des 4 inputs
         if (XRelatif < 0 and YRelatif < 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, 0, distance]
+            input.extend([0, 0, 0, distance])
         elif (XRelatif < 0 and YRelatif == 0):
             distance = 1 - (abs(XRelatif)) / BOARD_LENGTH
-            input += [distance, 0, 0, distance]
+            input.extend([distance, 0, 0, distance])
         elif (XRelatif < 0 and YRelatif > 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [distance, 0, 0, 0]
+            input.extend([distance, 0, 0, 0])
         elif (XRelatif == 0 and YRelatif > 0):
             distance = 1 - (abs(YRelatif)) / BOARD_LENGTH
-            input += [distance, distance, 0, 0]
+            input.extend([distance, distance, 0, 0])
         elif (XRelatif > 0 and YRelatif > 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, distance, 0, 0]
+            input.extend([0, distance, 0, 0])
         elif (XRelatif > 0 and YRelatif == 0):
             distance = 1 - (abs(XRelatif)) / BOARD_LENGTH
-            input += [0, distance, distance, 0]
+            input.extend([0, distance, distance, 0])
         elif (XRelatif > 0 and YRelatif < 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, distance, 0]
+            input.extend([0, 0, distance, 0])
         elif (XRelatif == 0 and YRelatif < 0):
             distance = 1 - (abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, distance, distance]
+            input.extend([0, 0, distance, distance])
         elif (XRelatif == 0 and YRelatif == 0):
-            input += [1, 1, 1, 1]
+            input.extend([1, 1, 1, 1])
 
         # Création des 3 inputs
         if xTete < 0 or xTete >= BOARD_LENGTH or yTete < 0 or yTete >= BOARD_LENGTH:
-            input += [1,1,1]
+            input.extend([1, 1, 1])
         else :
             # En haut
             while x >= 0 and not trouve:
@@ -258,10 +247,10 @@ def mappingCarre(board, snake, head):
                 if board[x][yTete] == 1:
                     trouve = True
                     distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             x = xTete
             trouve = False
 
@@ -271,10 +260,10 @@ def mappingCarre(board, snake, head):
                 if board[xTete][y] == 1:
                     trouve = True
                     distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             y = yTete
             trouve = False
 
@@ -284,10 +273,10 @@ def mappingCarre(board, snake, head):
                 if board[x][yTete] == 1:
                     trouve = True
                     distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             x = xTete
             trouve = False
 
@@ -296,46 +285,46 @@ def mappingCarre(board, snake, head):
         # Création des 4 inputs
         if (XRelatif < 0 and YRelatif < 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, distance, 0]
+            input.extend([0, 0, distance, 0])
         elif (XRelatif < 0 and YRelatif == 0):
             distance = 1 - (abs(XRelatif)) / BOARD_LENGTH
-            input += [0, 0, distance, distance]
+            input.extend([0, 0, distance, distance])
         elif (XRelatif < 0 and YRelatif > 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, 0, distance]
+            input.extend([0, 0, 0, distance])
         elif (XRelatif == 0 and YRelatif > 0):
             distance = 1 - (abs(YRelatif)) / BOARD_LENGTH
-            input += [distance, 0, 0, distance]
+            input.extend([distance, 0, 0, distance])
         elif (XRelatif > 0 and YRelatif > 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [distance, 0, 0, 0]
+            input.extend([distance, 0, 0, 0])
         elif (XRelatif > 0 and YRelatif == 0):
             distance = 1 - (abs(XRelatif)) / BOARD_LENGTH
-            input += [distance, distance, 0, 0]
+            input.extend([distance, distance, 0, 0])
         elif (XRelatif > 0 and YRelatif < 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, distance, 0, 0]
+            input.extend([0, distance, 0, 0])
         elif (XRelatif == 0 and YRelatif < 0):
             distance = 1 - (abs(YRelatif)) / BOARD_LENGTH
-            input += [0, distance, distance, 0]
+            input.extend([0, distance, distance, 0])
         elif (XRelatif == 0 and YRelatif == 0):
-            input += [1, 1, 1, 1]
+            input.extend([1, 1, 1, 1])
 
         # Création des 3 inputs
 
         # A droite
         if xTete < 0 or xTete >= BOARD_LENGTH or yTete < 0 or yTete >= BOARD_LENGTH:
-            input += [1,1,1]
+            input.extend([1, 1, 1])
         else :
             while y < BOARD_LENGTH - 1 and not trouve:
                 y += 1
                 if board[xTete][y] == 1:
                     trouve = True
                     distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             y = yTete
             trouve = False
 
@@ -345,10 +334,10 @@ def mappingCarre(board, snake, head):
                 if board[x][yTete] == 1:
                     trouve = True
                     distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             x = xTete
             trouve = False
 
@@ -358,10 +347,10 @@ def mappingCarre(board, snake, head):
                 if board[xTete][y] == 1:
                     trouve = True
                     distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             y = yTete
             trouve = False
 
@@ -371,34 +360,34 @@ def mappingCarre(board, snake, head):
         # Création des 4 inputs
         if (XRelatif < 0 and YRelatif < 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, distance, 0, 0]
+            input.extend([0, distance, 0, 0])
         elif (XRelatif < 0 and YRelatif == 0):
             distance = 1 - (abs(XRelatif)) / BOARD_LENGTH
-            input += [0, distance, distance, 0]
+            input.extend([0, distance, distance, 0])
         elif (XRelatif < 0 and YRelatif > 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, distance, 0]
+            input.extend([0, 0, distance, 0])
         elif (XRelatif == 0 and YRelatif > 0):
             distance = 1 - (abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, distance, distance]
+            input.extend([0, 0, distance, distance])
         elif (XRelatif > 0 and YRelatif > 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [0, 0, 0, distance]
+            input.extend([0, 0, 0, distance])
         elif (XRelatif > 0 and YRelatif == 0):
             distance = 1 - (abs(XRelatif)) / BOARD_LENGTH
-            input += [distance, 0, 0, distance]
+            input.extend([distance, 0, 0, distance])
         elif (XRelatif > 0 and YRelatif < 0):
             distance = 1 - (abs(XRelatif) + abs(YRelatif)) / BOARD_LENGTH
-            input += [distance, 0, 0, 0]
+            input.extend([distance, 0, 0, 0])
         elif (XRelatif == 0 and YRelatif < 0):
             distance = 1 - (abs(YRelatif)) / BOARD_LENGTH
-            input += [distance, distance, 0, 0]
+            input.extend([distance, distance, 0, 0])
         elif (XRelatif == 0 and YRelatif == 0):
-            input += [1, 1, 1, 1]
+            input.extend([1, 1, 1, 1])
 
             # Création des 3 inputs
         if xTete < 0 or xTete >= BOARD_LENGTH or yTete < 0 or yTete >= BOARD_LENGTH:
-            input += [1, 1, 1]
+            input.extend([1, 1, 1])
         else:
             #  En bas
             while x < BOARD_LENGTH - 1 and not trouve:
@@ -406,10 +395,10 @@ def mappingCarre(board, snake, head):
                 if board[x][yTete] == 1:
                     trouve = True
                     distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             x = xTete
             trouve = False
 
@@ -419,10 +408,10 @@ def mappingCarre(board, snake, head):
                 if board[xTete][y] == 1:
                     trouve = True
                     distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                input += [distance]
+                input.append(distance)
             y = yTete
             trouve = False
 
@@ -432,12 +421,10 @@ def mappingCarre(board, snake, head):
                 if board[xTete][y] == 1:
                     trouve = True
                     distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                    input += [distance]
+                    input.append(distance)
             if not trouve:
                 distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
-                input += [distance]
-            y = yTete
-            trouve = False
+                input.append(distance)
 
     return input
 
@@ -906,6 +893,7 @@ def one_player(screen):
     spots = make_board()
 
     food = find_food(spots)
+    spots[food[0]][food[1]]=2
     snake = Snake()
     currentHead = snake.deque[snake.deque.__len__() - 1]
     snake.state = mappingCarre(spots, snake, currentHead)
@@ -1251,12 +1239,12 @@ def main():
     thing = pygame.Rect(10, 10, 50, 50)
     pygame.draw.rect(screen, pygame.Color(255, 255, 255, 255), pygame.Rect(50, 50, 10, 10))
     first = True
-    
+
     playing = True
     while playing:
         if first or pick == 3:
             pick = 1
-            
+
         options = {0: quit,
                    1: one_player,
                    2: two_player,
