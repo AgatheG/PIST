@@ -415,15 +415,15 @@ def mappingCarre(board, snake, head):
             y = yTete
             trouve = False
 
-            # A droite
-            while y < BOARD_LENGTH - 1 and not trouve:
-                y += 1
-                if board[xTete][y] == 1:
+            # En haut
+            while x >= 0 and not trouve:
+                x -= 1
+                if board[x][yTete] == 1:
                     trouve = True
-                    distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
+                    distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
                     input.append(distance)
             if not trouve:
-                distance = 1 - (abs(y - yTete) / BOARD_LENGTH)
+                distance = 1 - (abs(x - xTete) / BOARD_LENGTH)
                 input.append(distance)
 
     return input
